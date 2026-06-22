@@ -127,10 +127,12 @@ a {
 }
 
 .live-dot {
-    width: 7px;
-    height: 7px;
+    display: block;
+    width: 8px;
+    height: 8px;
     background: var(--bfm-white);
     border-radius: 50%;
+    flex-shrink: 0;
     animation: pulse-live 1.5s infinite;
 }
 
