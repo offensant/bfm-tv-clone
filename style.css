@@ -146,7 +146,7 @@ a {
    =========================== */
 .main-nav {
     background: var(--bfm-blue);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
     border-bottom: none;
     overflow-x: auto;
     scrollbar-width: none;
