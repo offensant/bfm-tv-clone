@@ -37,6 +37,8 @@ body {
     color: var(--bfm-text);
     background: var(--bfm-white);
     line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 a {
@@ -940,4 +942,31 @@ a {
     border-top: 1px solid rgba(255,255,255,0.1);
     font-size: 12px;
     color: rgba(255,255,255,0.5);
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer_container {
+        padding: 0 16px;
+    }
+    .footer_wrapper_top_content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .footer_right_block {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .footer_wrapper_middle_content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .footer_col_liste {
+        grid-template-columns: 1fr;
+    }
+    .footer_social_media, .footer_application_icon {
+        flex-wrap: wrap;
+    }
 }
