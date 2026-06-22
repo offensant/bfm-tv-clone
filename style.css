@@ -589,9 +589,41 @@ a {
         padding: 0 10px;
     }
 
-    .header-action.replay,
-    .header-action.radio {
+    .header-action.replay {
         display: none;
+    }
+
+    .header-action {
+        flex-direction: column;
+        border: none;
+        padding: 0;
+        background: transparent;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .header-action:hover {
+        background: transparent;
+    }
+
+    .header-action.direct, .header-action.direct:hover {
+        background: transparent;
+    }
+
+    .header-action svg {
+        border: 1.5px solid var(--bfm-white);
+        border-radius: 50%;
+        padding: 7px;
+        width: 34px;
+        height: 34px;
+        box-sizing: border-box;
+        margin-right: 0 !important;
+    }
+
+    .header-action.direct svg {
+        background: var(--bfm-red);
+        border-color: var(--bfm-red);
     }
 
     .page-content {
