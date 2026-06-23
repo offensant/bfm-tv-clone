@@ -1097,35 +1097,14 @@ body {
     padding-top: 70px !important; /* Adjust according to header height */
 }
 
-/* Fix the menu panel size so it's not enormous on PC */
-.main_menu_nav .menu_nav {
-    width: 350px !important;
-    max-width: 85vw !important;
-    height: 100vh !important;
-    position: fixed !important; /* Ensure it stays on the left */
-    top: 0 !important;
-    left: 0 !important;
-    padding-top: 70px !important; /* Space for the fixed header */
-}
 
-/* Make sure the overlay also stays behind the header but covers everything else */
-.main_menu_nav {
-    z-index: 9999998 !important;
-}
-
-/* Optional: if you want the dark background to not cover the header */
-.main_menu_nav::before {
-    z-index: -1;
-}
 
 /* Responsive fixes */
 @media (max-width: 768px) {
     body {
         padding-top: 70px !important;
     }
-    .main_menu_nav .menu_nav {
-        padding-top: 70px !important;
-    }
+    
 }
 
 
