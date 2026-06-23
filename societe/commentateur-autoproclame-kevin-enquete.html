@@ -381,9 +381,10 @@
         
         // Intercept audio playback after 6 seconds for the paywall
         let hasShownPaywall = false;
-        document.getElementById('realInterviewAudio').addEventListener('timeupdate', function() {
-            if (this.currentTime >= 6 && !hasShownPaywall) {
-                this.pause();
+        setInterval(function() {
+            var audio = document.getElementById('realInterviewAudio');
+            if (audio && audio.currentTime >= 6 && !hasShownPaywall) {
+                audio.pause();
                 hasShownPaywall = true;
                 
                 // Reset play/pause icons
@@ -399,7 +400,7 @@
                 modal.style.display = 'flex';
                 modal.style.zIndex = '99999999'; // ensure it's on top of everything
             }
-        });
+        }, 500);
         document.getElementById('realInterviewAudio').addEventListener('ended', function() {
             document.getElementById('icon-play').style.display = 'block';
             document.getElementById('icon-pause').style.display = 'none';
