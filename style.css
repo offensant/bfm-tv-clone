@@ -1127,3 +1127,16 @@ body {
         padding-top: 50px !important;
     }
 }
+
+
+/* Fix footer SVG icons centering */
+.footer_social_media a, .footer_application_icon a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-indent: 0 !important; /* Override BFM hiding text */
+    color: transparent !important; /* Hide leftover text just in case */
+}
+.footer_social_media a svg, .footer_application_icon a svg {
+    display: block !important;
+}
