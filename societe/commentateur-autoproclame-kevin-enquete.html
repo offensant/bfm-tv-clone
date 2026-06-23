@@ -417,6 +417,9 @@
     
 
 
+    
+
+
     <!-- Menu Hamburger Logic -->
     <style>
         /* Force hide the broken carousel arrows */
@@ -426,28 +429,9 @@
         .slider_wrapper { overflow-x: auto; scrollbar-width: none; }
         .slider_wrapper::-webkit-scrollbar { display: none; }
         
-        /* Fix the custom close button */
-        .custom-menu-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 999999;
-            color: white;
-            transition: background 0.2s;
-        }
-        .custom-menu-close:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-        
+        /* Hide any internal BFM close buttons so we only use the hamburger */
+        .header_menu.close, .icon-close { display: none !important; }
+
         /* Mobile specific fixes */
         @media (max-width: 768px) {
             .main_menu_nav.close {
@@ -461,49 +445,49 @@
             const hamburgerBtn = document.querySelector('.hamburger-btn');
             const mainMenu = document.querySelector('.main_menu_nav');
             
-            if(hamburgerBtn && mainMenu) {
-                hamburgerBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
+            function toggleMenu(e) {
+                if (e) e.preventDefault();
+                
+                if (mainMenu.classList.contains('active')) {
+                    // Close menu
+                    mainMenu.classList.remove('active');
+                    mainMenu.classList.add('close');
+                    hamburgerBtn.classList.remove('open');
+                    
+                    setTimeout(() => {
+                        if(mainMenu.classList.contains('close')) {
+                            mainMenu.style.display = '';
+                        }
+                    }, 300); // match transition duration
+                    document.body.style.overflow = '';
+                } else {
+                    // Open menu
                     mainMenu.classList.remove('close');
                     mainMenu.classList.add('active');
+                    hamburgerBtn.classList.add('open');
                     mainMenu.style.display = 'block';
                     document.body.style.overflow = 'hidden'; // Prevent scrolling
-                });
+                }
             }
 
-            // Create and add a highly visible close button inside the menu
-            const closeBtn = document.createElement('button');
-            closeBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-            closeBtn.classList.add('custom-menu-close');
-            mainMenu.appendChild(closeBtn);
-
-            // Close logic
-            function closeMenu() {
-                mainMenu.classList.remove('active');
-                mainMenu.classList.add('close');
-                setTimeout(() => {
-                    if(mainMenu.classList.contains('close')) {
-                        mainMenu.style.display = '';
-                    }
-                }, 300); // match transition duration
-                document.body.style.overflow = '';
+            if(hamburgerBtn && mainMenu) {
+                // Remove previous listeners by cloning (just in case)
+                const newBtn = hamburgerBtn.cloneNode(true);
+                hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
+                
+                newBtn.addEventListener('click', toggleMenu);
             }
-
-            closeBtn.addEventListener('click', closeMenu);
 
             // Close when clicking on the dark backdrop area
-            mainMenu.addEventListener('click', function(e) {
-                if (e.target.classList.contains('main_menu_nav')) {
-                    closeMenu();
-                }
-            });
-            
-            // Also close if a real BFM close button exists and is clicked
-            mainMenu.addEventListener('click', function(e) {
-                if (e.target.closest('.header_menu.close') || e.target.closest('.icon-close')) {
-                    closeMenu();
-                }
-            });
+            if(mainMenu) {
+                mainMenu.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('main_menu_nav')) {
+                        if (mainMenu.classList.contains('active')) {
+                            toggleMenu();
+                        }
+                    }
+                });
+            }
         });
     </script>
 
