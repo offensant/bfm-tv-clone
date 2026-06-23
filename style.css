@@ -1045,3 +1045,31 @@ a {
 .hamburger-btn.open span:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
 }
+
+
+/* Footer text overrides */
+.footer_col_title {
+    color: #ffffff !important;
+}
+.footer_col_liste a, .footer_col a {
+    color: #e0e0e0 !important;
+}
+.footer_col_liste a:hover, .footer_col a:hover {
+    color: #ffffff !important;
+}
+.footer_copyright {
+    color: #a0a0a0 !important;
+}
+
+/* Ensure social icons are properly visible */
+.social-icon {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+.social-icon svg {
+    fill: currentColor !important;
+}
+.social-icon:hover {
+    color: #00007d !important;
+    background: #ffffff !important;
+}
