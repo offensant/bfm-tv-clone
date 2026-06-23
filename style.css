@@ -1073,3 +1073,9 @@ a {
     color: #00007d !important;
     background: #ffffff !important;
 }
+
+
+/* Fix header z-index so the hamburger cross stays visible above the menu */
+.main-header {
+    z-index: 9999999 !important;
+}
