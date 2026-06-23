@@ -1130,6 +1130,6 @@ body {
 
 @media (max-width: 768px) {
     .header-right {
-        gap: 12px !important;
+        gap: 16px !important;
     }
 }
