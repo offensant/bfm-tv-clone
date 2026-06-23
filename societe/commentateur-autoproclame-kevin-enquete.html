@@ -333,6 +333,12 @@
 
         function closePremiumModal() {
             modal.classList.remove('active');
+            // Also reset any inline styles that were force-applied
+            modal.style.opacity = '';
+            modal.style.pointerEvents = '';
+            modal.style.display = '';
+            modal.style.zIndex = '';
+            modal.style.visibility = '';
             setTimeout(() => {
                 document.getElementById('modalView1').style.display = 'block';
                 document.getElementById('modalView2').style.display = 'none';
