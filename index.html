@@ -336,30 +336,59 @@
     </div>
 </div>
 
-<!-- Menu Hamburger Logic -->
-    <style>
-        /* Force hide the broken carousel arrows */
-        .carousel_arrow { display: none !important; }
-        
-        /* Ensure the menu scrolls if items overflow */
-        .slider_wrapper { overflow-x: auto; scrollbar-width: none; }
-        .slider_wrapper::-webkit-scrollbar { display: none; }
-        
-        /* Hide any internal BFM close buttons so we only use the hamburger */
-        .header_menu.close, .icon-close { display: none !important; }
 
-        /* Mobile specific fixes */
-        @media (max-width: 768px) {
-            .main_menu_nav.close {
-                display: none !important;
-                transform: translateX(-100%) !important;
-            }
+
+<!-- Menu Hamburger Logic -->
+<style>
+    .carousel_arrow { display: none !important; }
+    .slider_wrapper { overflow-x: auto; scrollbar-width: none; }
+    .slider_wrapper::-webkit-scrollbar { display: none; }
+    .header_menu.close, .icon-close { display: none !important; }
+
+        /* Smooth animation for the hamburger menu */
+        .main_menu_nav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 9999998 !important;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.4s ease, opacity 0.4s ease !important;
+            display: block !important;
+            pointer-events: none;
         }
-    </style>
+        
+        .main_menu_nav.active {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* The sliding white panel */
+        .main_menu_nav .menu_nav {
+            transform: translateX(-100%) !important;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+            background: white !important;
+        }
+        
+        .main_menu_nav.active .menu_nav {
+            transform: translateX(0) !important;
+        }
+
+</style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hamburgerBtn = document.querySelector('.hamburger-btn');
             const mainMenu = document.querySelector('.main_menu_nav');
+            
+            // Clone the button to remove old event listeners
+            const newBtn = hamburgerBtn.cloneNode(true);
+            if(hamburgerBtn.parentNode) {
+                hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
+            }
             
             function toggleMenu(e) {
                 if (e) e.preventDefault();
@@ -367,34 +396,21 @@
                 if (mainMenu.classList.contains('active')) {
                     // Close menu
                     mainMenu.classList.remove('active');
-                    mainMenu.classList.add('close');
-                    hamburgerBtn.classList.remove('open');
-                    
-                    setTimeout(() => {
-                        if(mainMenu.classList.contains('close')) {
-                            mainMenu.style.display = '';
-                        }
-                    }, 300); // match transition duration
+                    newBtn.classList.remove('open');
                     document.body.style.overflow = '';
                 } else {
                     // Open menu
-                    mainMenu.classList.remove('close');
                     mainMenu.classList.add('active');
-                    hamburgerBtn.classList.add('open');
-                    mainMenu.style.display = 'block';
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    newBtn.classList.add('open');
+                    document.body.style.overflow = 'hidden';
                 }
             }
 
-            if(hamburgerBtn && mainMenu) {
-                // Remove previous listeners by cloning (just in case)
-                const newBtn = hamburgerBtn.cloneNode(true);
-                hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
-                
+            if(newBtn && mainMenu) {
                 newBtn.addEventListener('click', toggleMenu);
             }
 
-            // Close when clicking on the dark backdrop area
+            // Close when clicking outside the menu panel
             if(mainMenu) {
                 mainMenu.addEventListener('click', function(e) {
                     if (e.target.classList.contains('main_menu_nav')) {
@@ -406,8 +422,7 @@
             }
         });
     </script>
-
-</body>
+\n</body>
 </html>
 
 
