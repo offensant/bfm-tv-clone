@@ -362,6 +362,8 @@
         });
 
         // Play real audio function
+        var paywallTimer = null;
+        var paywallShown = false;
         function playRealAudio() {
             var audio = document.getElementById('realInterviewAudio');
             var iconPlay = document.getElementById('icon-play');
@@ -371,36 +373,35 @@
                 audio.play();
                 iconPlay.style.display = 'none';
                 iconPause.style.display = 'block';
+                // Start 6-second timer for paywall popup (only fires once)
+                if (!paywallShown && !paywallTimer) {
+                    paywallTimer = setTimeout(function() {
+                        audio.pause();
+                        paywallShown = true;
+                        iconPlay.style.display = 'block';
+                        iconPause.style.display = 'none';
+                        // Force show the premium modal
+                        var m = document.getElementById('premiumModal');
+                        if (m) {
+                            m.classList.add('active');
+                            m.style.opacity = '1';
+                            m.style.pointerEvents = 'auto';
+                            m.style.display = 'flex';
+                            m.style.zIndex = '99999999';
+                        }
+                    }, 6000);
+                }
             } else {
                 audio.pause();
                 iconPlay.style.display = 'block';
                 iconPause.style.display = 'none';
+                // Clear timer if user pauses before 6s
+                if (paywallTimer && !paywallShown) {
+                    clearTimeout(paywallTimer);
+                    paywallTimer = null;
+                }
             }
         }
-
-        
-        // Intercept audio playback after 6 seconds for the paywall
-        let hasShownPaywall = false;
-        setInterval(function() {
-            var audio = document.getElementById('realInterviewAudio');
-            if (audio && audio.currentTime >= 6 && !hasShownPaywall) {
-                audio.pause();
-                hasShownPaywall = true;
-                
-                // Reset play/pause icons
-                document.getElementById('icon-play').style.display = 'block';
-                document.getElementById('icon-pause').style.display = 'none';
-                
-                // Trigger the Premium modal
-                const modal = document.getElementById('premiumModal');
-                modal.classList.add('active');
-                modal.style.opacity = '1';
-                modal.style.visibility = 'visible';
-                modal.style.pointerEvents = 'auto';
-                modal.style.display = 'flex';
-                modal.style.zIndex = '99999999'; // ensure it's on top of everything
-            }
-        }, 500);
         document.getElementById('realInterviewAudio').addEventListener('ended', function() {
             document.getElementById('icon-play').style.display = 'block';
             document.getElementById('icon-pause').style.display = 'none';
