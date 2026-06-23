@@ -1120,3 +1120,9 @@ body {
 .footer_social_media a svg, .footer_application_icon a svg {
     display: block !important;
 }
+
+@media (max-width: 768px) {
+    .header-right {
+        gap: 12px !important;
+    }
+}
