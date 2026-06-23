@@ -89,7 +89,7 @@ a {
     border-radius: 1px;
     position: absolute;
     left: 6px;
-    transition: all 0.3s ease-in-out;
+    transition: none;
 }
 .hamburger-btn span:nth-child(1) { top: 8px; }
 .hamburger-btn span:nth-child(2) { top: 14px; }
