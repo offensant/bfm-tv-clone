@@ -318,9 +318,13 @@
             document.getElementById("progressBar").style.width = scrolled + "%";
         };
 
-        // Cookie Banner
+        // Cookie Banner - only show on first visit
+        if (localStorage.getItem('cookiesAccepted')) {
+            document.getElementById('cookieBanner').classList.add('hidden');
+        }
         function hideCookies() {
             document.getElementById('cookieBanner').classList.add('hidden');
+            localStorage.setItem('cookiesAccepted', 'true');
         }
 
         // Premium Modal Logic
